@@ -1,0 +1,19 @@
+## Interface: 30300
+## Author: mikekthx
+## Title: Good As New
+## Version: 1.0
+## Notes: Sells your junk items and repairs your gear automatically!
+## Notes-deDE: Verkauft automatisch graue Gegenstände und repariert deine Ausrüstung!
+## Notes-frFR: Vend automatiquement les objets gris et répare votre équipement !
+## Notes-esES: ¡Vende automáticamente los objetos grises y repara tu equipo!
+## Notes-ruRU: Продаёт серые предметы и чинит снаряжение автоматически!
+## Notes-koKR: 잡템을 자동으로 판매하고 장비를 수리합니다!
+## Notes-zhCN: 自动出售灰色物品并修理装备！
+## Notes-zhTW: 自動販售灰色物品並修理裝備！
+## SavedVariables: GoodOptions
+## X-Category: Quality of Life
+## DefaultState: Enabled
+
+locale.lua
+config.lua
+core.lua
