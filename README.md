@@ -41,7 +41,7 @@ I'd love your help adding more languages or improving existing ones!
 1. Open the `locale.lua` file
 2. Copy the `enUS` section
 3. Replace the values with your translation
-4. Submit a [pull request](https://github.com/mikekthx/GoodAsNew/pulls) — or [open an issue](https://github.com/mikekthx/GoodAsNew/issues) and paste the translated lines
+4. [Submit a pull request](https://github.com/mikekthx/GoodAsNew/pulls) — or [open an issue](https://github.com/mikekthx/GoodAsNew/issues) and paste the translated lines
 
 I'll handle the rest!
 
@@ -52,7 +52,7 @@ I'll handle the rest!
 
 ## ⚙️ Options
 
-  Access the settings from the main menu: `ESC > Interface > AddOns > Good As New`
+Access the settings from the main menu: `ESC > Interface > AddOns > Good As New`
 
 ## 📋 Requirements
 
@@ -61,8 +61,6 @@ I'll handle the rest!
 
 ## 🛡 License
 
-  [MIT License](LICENSE)
-
----
+[MIT License](LICENSE)
 
 If you like it, use it. If you break it, you probably deserved it.
