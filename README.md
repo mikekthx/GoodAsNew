@@ -5,10 +5,10 @@ Let the guild pay the bill, or handle it yourself like a pro.
 
 ## 🧠 What It Does
 
-- Sells all **gray-quality junk** from your bags when visiting a vendor.
-- Automatically **repairs your gear** — with your gold or your guild's. Option to only use guild funds while in a raid group.
-- Optional: Hold a **modifier key** to skip repairing.
-- Fully configurable in the **Interface > AddOns** panel.
+- Sells all **gray-quality junk** from your bags when visiting a vendor
+- Automatically **repairs your gear** — with your gold or your guild's. Option to only use guild funds while in a raid group
+- Optional: Hold a **modifier key** to skip repairing
+- Fully configurable in the **Interface > AddOns** panel
 
 ## 🔧 Features
 
@@ -19,7 +19,7 @@ Let the guild pay the bill, or handle it yourself like a pro.
 
 ## 🌍 Localization
 
-**Good As New** is fully localized — no matter your language, your gold-saving assistant has you covered!
+**Good As New** is fully localized for languages officially supported by the 3.3.5a client!
 
 Currently supported languages:
 - 🇺🇸 **English**
@@ -35,7 +35,7 @@ Translations are handled via the `locale.lua` file and loaded automatically base
 
 ### 🈯 Want to Help Translate?
 
-I'd love your help adding more languages or improving existing ones!
+I'd love your help improving existing languages or adding new ones if you need them!
 
 👉 To contribute a translation:
 1. Open the `locale.lua` file
@@ -56,11 +56,12 @@ Access the settings from the main menu: `ESC > Interface > AddOns > Good As New`
 
 ## 📋 Requirements
 
-- Supports **World of Warcraft 3.3.5a (Wrath of the Lich King)**  
+- Supports **World of Warcraft 3.3.5a (Wrath of the Lich King)**
 - Designed for **Project Epoch** or similar legacy servers
+- If there's interest I can try and adapt this for other versions
 
 ## 🛡 License
 
 [MIT License](LICENSE)
 
-If you like it, use it. If you break it, you probably deserved it.
+If you like it, use it. If you break it, ¯\_(ツ)_/¯
