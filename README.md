@@ -64,4 +64,4 @@ Access the settings from the main menu: `ESC > Interface > AddOns > Good As New`
 
 [MIT License](LICENSE)
 
-If you like it, use it. If you break it, ¯\_(ツ)_/¯
+If you like it, use it. If you break it, ¯\\\_(ツ)_/¯
