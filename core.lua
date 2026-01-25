@@ -74,7 +74,7 @@ local function itsShowtime()
 end
 
 local f = CreateFrame("Frame")
-f:SetScript("OnEvent", function(self, event, ...) if event == "MERCHANT_SHOW" then itsShowtime() end end)
+f:SetScript("OnEvent", itsShowtime)
 f:RegisterEvent("MERCHANT_SHOW")
 
 -- Merchant's already yappin'? Let’s hit 'em early!
