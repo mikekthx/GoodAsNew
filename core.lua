@@ -20,7 +20,7 @@ end
 local function itsShowtime()
 	-- Get this junk outta my face!
 	local total = 0
-	local itemCache = {}
+	local itemCacheQuality, itemCachePrice = {}, {}
 	for bag = 0, NUM_BAG_SLOTS do
 		local slots = GetContainerNumSlots(bag)
 		if slots > 0 then
@@ -28,12 +28,15 @@ local function itsShowtime()
 				local id = GetContainerItemID(bag, slot)
 				if id and id ~= 6196 then -- Don't waste my time with that cudgel!
 					local quality, price
-					if itemCache[id] then
-						quality, price = unpack(itemCache[id])
+					local q = itemCacheQuality[id]
+					if q then
+						quality = q
+						price = itemCachePrice[id]
 					else
-						local _, _, q, _, _, _, _, _, _, _, p = GetItemInfo(id)
-						quality, price = q, p
-						itemCache[id] = { quality, price }
+						local _, _, q_val, _, _, _, _, _, _, _, p_val = GetItemInfo(id)
+						quality, price = q_val, p_val
+						itemCacheQuality[id] = quality
+						itemCachePrice[id] = price
 					end
 
 					if quality == 0 and price and price > 0 then
