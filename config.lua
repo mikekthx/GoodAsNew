@@ -7,6 +7,8 @@ local CreateFrame = CreateFrame
 local UIDropDownMenu_Initialize = UIDropDownMenu_Initialize
 local UIDropDownMenu_SetSelectedID = UIDropDownMenu_SetSelectedID
 local UIDropDownMenu_SetText = UIDropDownMenu_SetText
+local tinsert = table.insert
+local tconcat = table.concat
 
 -- If no one's home, we're settin' the rules!
 GoodOptions = GoodOptions or {}
@@ -35,11 +37,13 @@ function ns.GetCoinText(amount)
 	local sc = GoodOptions.useColor and "|cffc7c7cf" or ""
 	local cc = GoodOptions.useColor and "|cffeda55f" or ""
 	local rc = GoodOptions.useColor and "|r" or ""
-	local cost = ""
-	if g > 0 then cost = format("%d%s%s%s ", g, gc, L.g[txt], rc) end
-	if s > 0 then cost = format("%s%d%s%s%s ", cost, s, sc, L.s[txt], rc) end
-	if c > 0 then cost = format("%s%d%s%s%s", cost, c, cc, L.c[txt], rc) end
-	return strtrim(cost)
+
+	local parts = {}
+	if g > 0 then tinsert(parts, format("%d%s%s%s", g, gc, L.g[txt], rc)) end
+	if s > 0 then tinsert(parts, format("%d%s%s%s", s, sc, L.s[txt], rc)) end
+	if c > 0 then tinsert(parts, format("%d%s%s%s", c, cc, L.c[txt], rc)) end
+
+	return tconcat(parts, " ")
 end
 
 -- However you wanna see it, we’ll dress it up nice!
