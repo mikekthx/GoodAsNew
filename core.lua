@@ -16,6 +16,20 @@ local function p(msg, cost)
 	end
 end
 
+-- Check the funds!
+local function CheckRepairStatus(cost)
+	-- Time to peek inside the piggy banks!
+	local cash, hoard = GetMoney(), GetGuildBankWithdrawMoney()
+	if (O.guildRepair or O.guildOnlyRaid and GetNumRaidMembers() ~= 0) and
+	  CanGuildBankRepair() and
+	  cost <= GetGuildBankMoney() and
+	  (cost <= hoard or hoard == -1) then
+		return true, 1
+	elseif cost <= cash then
+		return true, nil
+	end
+end
+
 -- Let's get ready to rumble!
 local function itsShowtime()
 	-- Get this junk outta my face!
@@ -51,25 +65,16 @@ local function itsShowtime()
 	if not CanMerchantRepair() then return end
 
 	-- Gotta crunch the numbers before we open the wallet!
-	local cost, spender = GetRepairAllCost(), nil
-	local function canRepair()
-		-- Time to peek inside the piggy banks!
-		local cash, hoard = GetMoney(), GetGuildBankWithdrawMoney()
-		if (O.guildRepair or O.guildOnlyRaid and GetNumRaidMembers() ~= 0) and
-		  CanGuildBankRepair() and
-		  cost <= GetGuildBankMoney() and
-		  (cost <= hoard or hoard == -1) then
-			spender = 1
-			return true
-		elseif cost <= cash then
-			return true
-		end
+	local cost = GetRepairAllCost()
+	local canRepair, spender
+	if cost > 0 then
+		canRepair, spender = CheckRepairStatus(cost)
 	end
 
 	-- Last, but not least!
 	if IsModifierKeyDown() and O.useModKey then -- Meh! I'll repair later I guess!
 		return
-	elseif cost > 0 and canRepair() then -- My body is ready!
+	elseif cost > 0 and canRepair then -- My body is ready!
 		if spender then
 			p(L["Repaired from the guild bank for"], cost)
 		else
