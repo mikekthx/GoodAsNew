@@ -5,6 +5,7 @@ local O = GoodOptions
 -- Get in here, Globals!
 local GetContainerItemID = GetContainerItemID
 local GetContainerNumSlots = GetContainerNumSlots
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local GetItemInfo = GetItemInfo
 local ShowMerchantSellCursor = ShowMerchantSellCursor
 local UseContainerItem = UseContainerItem
