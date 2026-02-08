@@ -9,7 +9,12 @@ local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local GetItemInfo = GetItemInfo
 local ShowMerchantSellCursor = ShowMerchantSellCursor
 local UseContainerItem = UseContainerItem
-local wipe = wipe
+local wipe = wipe or function(t)
+	for k in pairs(t) do
+		t[k] = nil
+	end
+	return t
+end
 
 -- Shout it from the rooftops! or don't...
 local function p(msg, cost)
