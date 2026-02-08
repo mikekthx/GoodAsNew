@@ -50,7 +50,7 @@ local function itsShowtime()
 					else
 						local _, _, q_val, _, _, _, _, _, _, _, p_val = GetItemInfo(id)
 						quality, price = q_val, p_val
-						itemCacheQuality[id] = quality
+						itemCacheQuality[id] = quality or -1
 						itemCachePrice[id] = price
 					end
 
