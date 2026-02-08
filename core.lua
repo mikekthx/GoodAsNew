@@ -9,6 +9,7 @@ local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local GetItemInfo = GetItemInfo
 local ShowMerchantSellCursor = ShowMerchantSellCursor
 local UseContainerItem = UseContainerItem
+local wipe = wipe
 
 -- Shout it from the rooftops! or don't...
 local function p(msg, cost)
@@ -32,10 +33,12 @@ local function CheckRepairStatus(cost)
 end
 
 -- Let's get ready to rumble!
+local itemCacheQuality, itemCachePrice = {}, {}
 local function itsShowtime()
 	-- Get this junk outta my face!
 	local total = 0
-	local itemCacheQuality, itemCachePrice = {}, {}
+	wipe(itemCacheQuality)
+	wipe(itemCachePrice)
 	for bag = 0, NUM_BAG_SLOTS do
 		local slots = GetContainerNumSlots(bag)
 		if slots > 0 then
