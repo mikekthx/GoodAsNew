@@ -7,7 +7,6 @@ local GetContainerItemID = GetContainerItemID
 local GetContainerNumSlots = GetContainerNumSlots
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local GetItemInfo = GetItemInfo
-local ShowMerchantSellCursor = ShowMerchantSellCursor
 local UseContainerItem = UseContainerItem
 
 -- Shout it from the rooftops! or don't...
@@ -55,7 +54,6 @@ local function itsShowtime()
 					end
 
 					if quality == 0 and price and price > 0 then
-						ShowMerchantSellCursor(1)
 						UseContainerItem(bag, slot)
 						total = total + price
 					end
