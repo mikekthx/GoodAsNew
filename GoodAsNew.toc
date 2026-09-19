@@ -10,6 +10,8 @@
 ## Notes-koKR: 잡템을 자동으로 판매하고 장비를 수리합니다!
 ## Notes-zhCN: 自动出售灰色物品并修理装备！
 ## Notes-zhTW: 自動販售灰色物品並修理裝備！
+## Notes-ptBR: Vende seus itens quebrados e repara seu equipamento automaticamente!
+## Notes-itIT: Vende automaticamente gli oggetti di scarto e ripara l'equipaggiamento!
 ## SavedVariables: GoodOptions
 ## X-Category: Quality of Life
 ## DefaultState: Enabled

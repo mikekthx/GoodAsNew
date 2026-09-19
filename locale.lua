@@ -9,7 +9,7 @@ local L = setmetatable({}, {
 })
 ns.L = L
 
--- Supported locales: enUS, enGB, deDE, frFR, esES, esMX, ruRU, koKR, zhCN, zhTW
+-- Supported locales: enUS, enGB, deDE, frFR, esES, esMX, ruRU, ptBR, itIT, koKR, zhCN, zhTW
 local lang = GetLocale()
 
 -- Do you speak English?
@@ -217,5 +217,57 @@ if lang == "zhTW" then
 	L["Repaired for"] = "修理費用："
 	L["Repaired from the guild bank for"] = "使用公會資金修理："
 	L["Not enough money to automatically repair!"] = "沒有足夠的金錢進行自動修理！"
+	return
+end
+
+-- Você fala português?
+if lang == "ptBR" then
+	L["Repair with guild money"] = "Reparar com o dinheiro da guilda"
+	L["Off"] = "Desativado"
+	L["All the time"] = "Sempre"
+	L["Only in a raid group"] = "Apenas em grupo de raide"
+	L["Hold Modifier Key to prevent repairing"] = "Segure uma tecla modificadora para evitar o reparo"
+	L["Show messages in chat"] = "Mostrar mensagens no chat"
+	L["Currency display style:"] = "Estilo de exibição da moeda:"
+	L["Error formatting money!"] = "Erro ao formatar o dinheiro!"
+	L["Display Warning"] = "Aviso de exibição"
+	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] = "A exibição de moedas pode apresentar falhas visuais.\nConsidere usar as opções de texto para uma exibição mais limpa."
+	L["Coin icons"] = "Ícones de moedas"
+	L["Short text"] = "Texto curto"
+	L["Full text"] = "Texto completo"
+	L["Use color formatting"] = "Usar formatação colorida"
+	L["g"] = {"o", " Ouro"}
+	L["s"] = {"p", " Prata"}
+	L["c"] = {"c", " Cobre"}
+	L["Junk items sold for"] = "Itens de refugo vendidos por"
+	L["Repaired for"] = "Reparado por"
+	L["Repaired from the guild bank for"] = "Reparado com fundos da guilda por"
+	L["Not enough money to automatically repair!"] = "Dinheiro insuficiente para reparo automático!"
+	return
+end
+
+-- Parli italiano?
+if lang == "itIT" then
+	L["Repair with guild money"] = "Ripara con i soldi della gilda"
+	L["Off"] = "Disattivato"
+	L["All the time"] = "Sempre"
+	L["Only in a raid group"] = "Solo in un gruppo di raid"
+	L["Hold Modifier Key to prevent repairing"] = "Tieni premuto un tasto modificatore per evitare la riparazione"
+	L["Show messages in chat"] = "Mostra messaggi in chat"
+	L["Currency display style:"] = "Stile di visualizzazione della valuta:"
+	L["Error formatting money!"] = "Errore nella formattazione del denaro!"
+	L["Display Warning"] = "Avviso di visualizzazione"
+	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] = "La visualizzazione delle monete potrebbe presentare artefatti visivi.\nConsidera di usare le opzioni testuali per una visualizzazione più pulita."
+	L["Coin icons"] = "Icone delle monete"
+	L["Short text"] = "Testo breve"
+	L["Full text"] = "Testo completo"
+	L["Use color formatting"] = "Usa la formattazione a colori"
+	L["g"] = {"o", " Oro"}
+	L["s"] = {"a", " Argento"}
+	L["c"] = {"r", " Rame"}
+	L["Junk items sold for"] = "Oggetti di scarto venduti per"
+	L["Repaired for"] = "Riparato per"
+	L["Repaired from the guild bank for"] = "Riparato con i fondi della gilda per"
+	L["Not enough money to automatically repair!"] = "Non hai abbastanza denaro per riparare automaticamente!"
 	return
 end

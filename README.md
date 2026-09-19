@@ -27,6 +27,8 @@ Currently supported languages:
 - 🇫🇷 **French**
 - 🇪🇸 **Spanish**
 - 🇷🇺 **Russian**
+- 🇧🇷 **Portuguese (Brazil)**
+- 🇮🇹 **Italian**
 - 🇰🇷 **Korean**
 - 🇨🇳 **Simplified Chinese**
 - 🇹🇼 **Traditional Chinese**
