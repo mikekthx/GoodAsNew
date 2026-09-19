@@ -3,17 +3,12 @@ local L = ns.L
 local O = GoodOptions
 
 -- Get in here, Globals!
-local GetContainerItemID = GetContainerItemID
-local GetContainerNumSlots = GetContainerNumSlots
+local GetContainerItemID = C_Container.GetContainerItemID
+local GetContainerNumSlots = C_Container.GetContainerNumSlots
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
-local GetItemInfo = GetItemInfo
-local UseContainerItem = UseContainerItem
-local wipe = wipe or function(t)
-	for k in pairs(t) do
-		t[k] = nil
-	end
-	return t
-end
+local GetItemInfo = C_Item.GetItemInfo
+local UseContainerItem = C_Container.UseContainerItem
+local wipe = wipe
 
 -- Shout it from the rooftops! or don't...
 local function p(msg, cost)
@@ -26,11 +21,11 @@ end
 local function CheckRepairStatus(cost)
 	-- Time to peek inside the piggy banks!
 	local cash, hoard = GetMoney(), GetGuildBankWithdrawMoney()
-	if (O.guildRepair or O.guildOnlyRaid and GetNumRaidMembers() ~= 0) and
+	if (O.guildMode == "always" or (O.guildMode == "raid" and IsInRaid())) and
 	  CanGuildBankRepair() and
 	  cost <= GetGuildBankMoney() and
 	  (cost <= hoard or hoard == -1) then
-		return true, 1
+		return true, true
 	elseif cost <= cash then
 		return true, nil
 	end

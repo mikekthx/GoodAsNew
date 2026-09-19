@@ -15,6 +15,7 @@ local lang = GetLocale()
 -- Do you speak English?
 if lang == "enUS" or lang == "enGB" then
 	L["Repair with guild money"] = "Repair with guild money"
+	L["Off"] = "Off"
 	L["All the time"] = "All the time"
 	L["Only in a raid group"] = "Only in a raid group"
 	L["Hold Modifier Key to prevent repairing"] = "Hold Modifier Key to prevent repairing"
@@ -40,6 +41,7 @@ end
 -- Sprichst du Deutsch?
 if lang == "deDE" then
 	L["Repair with guild money"] = "Mit Gildenkasse reparieren"
+	L["Off"] = "Aus"
 	L["All the time"] = "Immer"
 	L["Only in a raid group"] = "Nur in einer Schlachtzugsgruppe"
 	L["Hold Modifier Key to prevent repairing"] = "Reparatur mit gedrückter Mod-Taste verhindern"
@@ -65,6 +67,7 @@ end
 -- Parlez-vous français ?
 if lang == "frFR" then
 	L["Repair with guild money"] = "Réparer avec l'argent de la guilde"
+	L["Off"] = "Désactivé"
 	L["All the time"] = "Tout le temps"
 	L["Only in a raid group"] = "Uniquement en groupe de raid"
 	L["Hold Modifier Key to prevent repairing"] = "Maintenir une touche modificatrice pour bloquer la réparation"
@@ -90,6 +93,7 @@ end
 -- ¿Hablas español?
 if lang == "esES" or lang == "esMX" then
 	L["Repair with guild money"] = "Reparar con fondos de la hermandad"
+	L["Off"] = "Desactivado"
 	L["All the time"] = "Siempre"
 	L["Only in a raid group"] = "Solo en una banda"
 	L["Hold Modifier Key to prevent repairing"] = "Mantén una tecla modificadora para evitar la reparación"
@@ -115,6 +119,7 @@ end
 -- Вы говорите по-русски?
 if lang == "ruRU" then
 	L["Repair with guild money"] = "Ремонт за счет гильдии"
+	L["Off"] = "Выключено"
 	L["All the time"] = "Всегда"
 	L["Only in a raid group"] = "Только в рейде"
 	L["Hold Modifier Key to prevent repairing"] = "Зажмите клавишу-модификатор, чтобы не чинить"
@@ -140,6 +145,7 @@ end
 -- 한국어 할 줄 아세요?
 if lang == "koKR" then
 	L["Repair with guild money"] = "길드 자금으로 수리"
+	L["Off"] = "끄기"
 	L["All the time"] = "항상"
 	L["Only in a raid group"] = "공격대일 때만"
 	L["Hold Modifier Key to prevent repairing"] = "보조 키를 눌러 수리 방지"
@@ -165,6 +171,7 @@ end
 -- 你会说中文吗？
 if lang == "zhCN" then
 	L["Repair with guild money"] = "使用公会资金修理"
+	L["Off"] = "关闭"
 	L["All the time"] = "总是"
 	L["Only in a raid group"] = "仅在团队中"
 	L["Hold Modifier Key to prevent repairing"] = "按住修饰键可防修理"
@@ -190,6 +197,7 @@ end
 -- 你會說中文嗎？
 if lang == "zhTW" then
 	L["Repair with guild money"] = "使用公會資金修理"
+	L["Off"] = "關閉"
 	L["All the time"] = "總是"
 	L["Only in a raid group"] = "僅限團隊中"
 	L["Hold Modifier Key to prevent repairing"] = "按住組合鍵可防修理"

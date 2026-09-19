@@ -19,7 +19,7 @@ Let the guild pay the bill, or handle it yourself like a pro.
 
 ## 🌍 Localization
 
-**Good As New** is fully localized for languages officially supported by the 3.3.5a client!
+**Good As New** is fully localized for languages officially supported by the client!
 
 Currently supported languages:
 - 🇺🇸 **English**
@@ -56,9 +56,8 @@ Access the settings from the main menu: `ESC > Interface > AddOns > Good As New`
 
 ## 📋 Requirements
 
-- Supports **World of Warcraft 3.3.5a (Wrath of the Lich King)**
-- Designed for **Project Epoch** or similar legacy servers
-- If there's interest I can try and adapt this for other versions
+- Supports **World of Warcraft: Forever**
+- Looking for the Wrath of the Lich King (3.3.5a / Project Epoch) version? See the [`3.3.5a` branch](https://github.com/mikekthx/GoodAsNew/tree/3.3.5a)
 
 ## 🛡 License
 
