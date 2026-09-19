@@ -7,21 +7,6 @@ local tconcat = table.concat
 
 -- If no one's home, we're settin' the rules!
 GoodOptions = GoodOptions or {}
-
--- Old saves: guildMode was inert dropdown memory, guildRepair/guildOnlyRaid were the real on/off switch.
--- Derive the new single guildMode gate from them so an upgrade can't silently switch guild repair on.
-if GoodOptions.guildRepair ~= nil or GoodOptions.guildOnlyRaid ~= nil then
-	if GoodOptions.guildRepair then
-		GoodOptions.guildMode = "always"
-	elseif GoodOptions.guildOnlyRaid then
-		GoodOptions.guildMode = "raid"
-	else
-		GoodOptions.guildMode = "off"
-	end
-	GoodOptions.guildRepair = nil
-	GoodOptions.guildOnlyRaid = nil
-end
-
 local defaults = {
 	guildMode = "off", -- "off", "always", "raid"
 	useModKey = false,

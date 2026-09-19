@@ -8,7 +8,7 @@ Let the guild pay the bill, or handle it yourself like a pro.
 - Sells all **gray-quality junk** from your bags when visiting a vendor
 - Automatically **repairs your gear** — with your gold or your guild's. Option to only use guild funds while in a raid group
 - Optional: Hold a **modifier key** to skip repairing
-- Fully configurable in the **Interface > AddOns** panel
+- Fully configurable in the **Options > AddOns** panel
 
 ## 🔧 Features
 
@@ -52,7 +52,7 @@ I'll handle the rest!
 
 ## ⚙️ Options
 
-Access the settings from the main menu: `ESC > Interface > AddOns > Good As New`
+Access the settings from the main menu: `ESC > Options > AddOns > Good As New`
 
 ## 📋 Requirements
 
