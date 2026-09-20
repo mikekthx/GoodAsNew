@@ -2,7 +2,11 @@
 .vscode/
 
 # Ignore Claude Code project guidance (local-only)
+.claude
 CLAUDE.md
+
+# Ignore scripts
+*.ps1
 
 # Ignore macOS metadata
 .DS_Store
