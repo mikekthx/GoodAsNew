@@ -13,7 +13,7 @@ Let the guild pay the bill, or handle it yourself like a pro.
 ## 🔧 Features
 
 - 🛠️ Auto Repair (personal or guild bank)
-- 💸 Auto Junk Sell (except for the legendary [Noboru's Cudgel] — we know better!)
+- 💸 Auto Junk Sell
 - 🗨️ Optional chat messages
 - 🎨 Choose how gold is displayed in chat: `12g 34s 56c`, `12 Gold 34 Silver 56 Copper` or classic coin icons
 
@@ -59,7 +59,7 @@ Access the settings from the main menu: `ESC > Options > AddOns > Good As New`
 ## 📋 Requirements
 
 - Supports **World of Warcraft: Forever**
-- Looking for the Wrath of the Lich King (3.3.5a / Project Epoch) version? See the [`3.3.5a` branch](https://github.com/mikekthx/GoodAsNew/tree/3.3.5a)
+- Looking for the Wrath of the Lich King (3.3.5a) version? See the [`3.3.5a` branch](https://github.com/mikekthx/GoodAsNew/tree/3.3.5a)
 
 ## 🛡 License
 

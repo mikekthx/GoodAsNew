@@ -7,8 +7,6 @@ local GetContainerItemID = C_Container.GetContainerItemID
 local GetContainerNumSlots = C_Container.GetContainerNumSlots
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local GetItemInfo = C_Item.GetItemInfo
-local UseContainerItem = C_Container.UseContainerItem
-local wipe = wipe
 
 -- Shout it from the rooftops! or don't...
 local function p(msg, cost)
@@ -32,39 +30,27 @@ local function CheckRepairStatus(cost)
 end
 
 -- Let's get ready to rumble!
-local itemCacheQuality, itemCachePrice = {}, {}
 local function itsShowtime()
 	-- Get this junk outta my face!
-	local total = 0
-	wipe(itemCacheQuality)
-	wipe(itemCachePrice)
-	for bag = 0, NUM_BAG_SLOTS do
-		local slots = GetContainerNumSlots(bag)
-		if slots > 0 then
-			for slot = 1, slots do
-				local id = GetContainerItemID(bag, slot)
-				if id and id ~= 6196 then -- Don't waste my time with that cudgel!
-					local quality, price
-					local q = itemCacheQuality[id]
-					if q then
-						quality = q
-						price = itemCachePrice[id]
-					else
-						local _, _, q_val, _, _, _, _, _, _, _, p_val = GetItemInfo(id)
-						quality, price = q_val, p_val
-						itemCacheQuality[id] = quality or -1
-						itemCachePrice[id] = price
-					end
-
-					if quality == 0 and price and price > 0 then
-						UseContainerItem(bag, slot)
-						total = total + price
+	if C_MerchantFrame.IsSellAllJunkEnabled() then
+		local total = 0
+		for bag = 0, NUM_BAG_SLOTS do
+			local slots = GetContainerNumSlots(bag)
+			if slots > 0 then
+				for slot = 1, slots do
+					local id = GetContainerItemID(bag, slot)
+					if id then
+						local _, _, quality, _, _, _, _, _, _, _, price = GetItemInfo(id)
+						if quality == 0 and price and price > 0 then
+							total = total + price
+						end
 					end
 				end
 			end
 		end
+		C_MerchantFrame.SellAllJunkItems()
+		if total > 0 then p(L["Junk items sold for"], total) end
 	end
-	if total > 0 then p(L["Junk items sold for"], total) end
 
 	-- If this jabroni can't repair us then fuhgeddaboudit!
 	if not CanMerchantRepair() then return end
