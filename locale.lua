@@ -14,7 +14,7 @@ local lang = GetLocale()
 
 -- Do you speak English?
 if lang == "enUS" or lang == "enGB" then
-	L["Repair with guild money"] = "Repair with guild money"
+	L["Repair with guild bank funds"] = "Repair with guild bank funds"
 	L["Off"] = "Off"
 	L["All the time"] = "All the time"
 	L["Only in a raid group"] = "Only in a raid group"
@@ -40,7 +40,7 @@ end
 
 -- Sprichst du Deutsch?
 if lang == "deDE" then
-	L["Repair with guild money"] = "Mit Gildenkasse reparieren"
+	L["Repair with guild bank funds"] = "Mit der Gildenbank reparieren"
 	L["Off"] = "Aus"
 	L["All the time"] = "Immer"
 	L["Only in a raid group"] = "Nur in einer Schlachtzugsgruppe"
@@ -57,16 +57,16 @@ if lang == "deDE" then
 	L["g"] = {"g", " Gold"}
 	L["s"] = {"s", " Silber"}
 	L["c"] = {"k", " Kupfer"}
-	L["Junk items sold for"] = "Graue Gegenstände verkauft für"
+	L["Junk items sold for"] = "Plunder verkauft für"
 	L["Repaired for"] = "Repariert für"
-	L["Repaired from the guild bank for"] = "Mit Gildenkasse repariert für"
+	L["Repaired from the guild bank for"] = "Aus der Gildenbank repariert für"
 	L["Not enough money to automatically repair!"] = "Nicht genug Geld zum automatischen Reparieren!"
 	return
 end
 
 -- Parlez-vous français ?
 if lang == "frFR" then
-	L["Repair with guild money"] = "Réparer avec l'argent de la guilde"
+	L["Repair with guild bank funds"] = "Réparer avec la banque de guilde"
 	L["Off"] = "Désactivé"
 	L["All the time"] = "Tout le temps"
 	L["Only in a raid group"] = "Uniquement en groupe de raid"
@@ -80,19 +80,19 @@ if lang == "frFR" then
 	L["Short text"] = "Texte court"
 	L["Full text"] = "Texte complet"
 	L["Use color formatting"] = "Utiliser la mise en couleur"
-	L["g"] = {"po", " Pièces d’or"}
-	L["s"] = {"pa", " Pièces d’argent"}
-	L["c"] = {"pc", " Pièces de cuivre"}
-	L["Junk items sold for"] = "Objets gris vendus pour"
+	L["g"] = {"po", " or"}
+	L["s"] = {"pa", " argent"}
+	L["c"] = {"pc", " cuivre"}
+	L["Junk items sold for"] = "Camelote vendue pour"
 	L["Repaired for"] = "Réparé pour"
-	L["Repaired from the guild bank for"] = "Réparé avec les fonds de la guilde pour"
+	L["Repaired from the guild bank for"] = "Réparé avec la banque de guilde pour"
 	L["Not enough money to automatically repair!"] = "Pas assez d'argent pour réparer automatiquement !"
 	return
 end
 
 -- ¿Hablas español?
 if lang == "esES" or lang == "esMX" then
-	L["Repair with guild money"] = "Reparar con fondos de la hermandad"
+	L["Repair with guild bank funds"] = "Reparar con el banco de hermandad"
 	L["Off"] = "Desactivado"
 	L["All the time"] = "Siempre"
 	L["Only in a raid group"] = "Solo en una banda"
@@ -106,19 +106,19 @@ if lang == "esES" or lang == "esMX" then
 	L["Short text"] = "Texto corto"
 	L["Full text"] = "Texto completo"
 	L["Use color formatting"] = "Usar formato en color"
-	L["g"] = {"o", " Oro"}
-	L["s"] = {"p", " Plata"}
-	L["c"] = {"c", " Cobre"}
-	L["Junk items sold for"] = "Objetos grises vendidos por"
+	L["g"] = {"o", " oro"}
+	L["s"] = {"p", " plata"}
+	L["c"] = {"c", " cobre"}
+	L["Junk items sold for"] = "Chatarra vendida por"
 	L["Repaired for"] = "Reparado por"
-	L["Repaired from the guild bank for"] = "Reparado con fondos de la hermandad por"
+	L["Repaired from the guild bank for"] = "Reparado con el banco de hermandad por"
 	L["Not enough money to automatically repair!"] = "¡No hay suficiente dinero para reparar automáticamente!"
 	return
 end
 
 -- Вы говорите по-русски?
 if lang == "ruRU" then
-	L["Repair with guild money"] = "Ремонт за счет гильдии"
+	L["Repair with guild bank funds"] = "Ремонт за счет банка гильдии"
 	L["Off"] = "Выключено"
 	L["All the time"] = "Всегда"
 	L["Only in a raid group"] = "Только в рейде"
@@ -132,19 +132,19 @@ if lang == "ruRU" then
 	L["Short text"] = "Краткий текст"
 	L["Full text"] = "Полный текст"
 	L["Use color formatting"] = "Использовать цветное оформление"
-	L["g"] = {"з", " Золотых"}
-	L["s"] = {"с", " Серебряных"}
-	L["c"] = {"м", " Медных"}
-	L["Junk items sold for"] = "Продажа серых предметов:"
+	L["g"] = {"з", " золото"}
+	L["s"] = {"с", " серебро"}
+	L["c"] = {"м", " медь"}
+	L["Junk items sold for"] = "Хлам продан за"
 	L["Repaired for"] = "Отремонтировано за"
-	L["Repaired from the guild bank for"] = "Отремонтировано за счет гильдии"
+	L["Repaired from the guild bank for"] = "Отремонтировано из банка гильдии за"
 	L["Not enough money to automatically repair!"] = "Недостаточно денег для автоматического ремонта!"
 	return
 end
 
 -- 한국어 할 줄 아세요?
 if lang == "koKR" then
-	L["Repair with guild money"] = "길드 자금으로 수리"
+	L["Repair with guild bank funds"] = "길드 은행 자금으로 수리"
 	L["Off"] = "끄기"
 	L["All the time"] = "항상"
 	L["Only in a raid group"] = "공격대일 때만"
@@ -158,19 +158,19 @@ if lang == "koKR" then
 	L["Short text"] = "짧은 텍스트"
 	L["Full text"] = "전체 텍스트"
 	L["Use color formatting"] = "색상 형식 사용"
-	L["g"] = {"금", " 금화"}
-	L["s"] = {"은", " 은화"}
-	L["c"] = {"동", " 동화"}
-	L["Junk items sold for"] = "잡템 판매 금액:"
+	L["g"] = {"골", " 골드"}
+	L["s"] = {"실", " 실버"}
+	L["c"] = {"코", " 코퍼"}
+	L["Junk items sold for"] = "잡동사니 판매 금액:"
 	L["Repaired for"] = "수리 비용:"
-	L["Repaired from the guild bank for"] = "길드 자금으로 수리:"
+	L["Repaired from the guild bank for"] = "길드 은행 수리 비용:"
 	L["Not enough money to automatically repair!"] = "자동 수리에 충분한 돈이 없습니다!"
 	return
 end
 
 -- 你会说中文吗？
 if lang == "zhCN" then
-	L["Repair with guild money"] = "使用公会资金修理"
+	L["Repair with guild bank funds"] = "使用公会银行资金修理"
 	L["Off"] = "关闭"
 	L["All the time"] = "总是"
 	L["Only in a raid group"] = "仅在团队中"
@@ -187,16 +187,16 @@ if lang == "zhCN" then
 	L["g"] = {"金", " 金币"}
 	L["s"] = {"银", " 银币"}
 	L["c"] = {"铜", " 铜币"}
-	L["Junk items sold for"] = "出售灰色物品所得："
+	L["Junk items sold for"] = "出售垃圾物品所得："
 	L["Repaired for"] = "修理费用："
-	L["Repaired from the guild bank for"] = "使用公会资金修理："
+	L["Repaired from the guild bank for"] = "公会银行修理费用："
 	L["Not enough money to automatically repair!"] = "没有足够的钱自动修理！"
 	return
 end
 
 -- 你會說中文嗎？
 if lang == "zhTW" then
-	L["Repair with guild money"] = "使用公會資金修理"
+	L["Repair with guild bank funds"] = "使用公會銀行資金修理"
 	L["Off"] = "關閉"
 	L["All the time"] = "總是"
 	L["Only in a raid group"] = "僅限團隊中"
@@ -213,16 +213,16 @@ if lang == "zhTW" then
 	L["g"] = {"金", " 金幣"}
 	L["s"] = {"銀", " 銀幣"}
 	L["c"] = {"銅", " 銅幣"}
-	L["Junk items sold for"] = "賣出灰色物品獲得："
+	L["Junk items sold for"] = "賣出垃圾物品獲得："
 	L["Repaired for"] = "修理費用："
-	L["Repaired from the guild bank for"] = "使用公會資金修理："
+	L["Repaired from the guild bank for"] = "公會銀行修理費用："
 	L["Not enough money to automatically repair!"] = "沒有足夠的金錢進行自動修理！"
 	return
 end
 
 -- Você fala português?
 if lang == "ptBR" then
-	L["Repair with guild money"] = "Reparar com o dinheiro da guilda"
+	L["Repair with guild bank funds"] = "Reparar com o banco da guilda"
 	L["Off"] = "Desativado"
 	L["All the time"] = "Sempre"
 	L["Only in a raid group"] = "Apenas em grupo de raide"
@@ -236,19 +236,19 @@ if lang == "ptBR" then
 	L["Short text"] = "Texto curto"
 	L["Full text"] = "Texto completo"
 	L["Use color formatting"] = "Usar formatação colorida"
-	L["g"] = {"o", " Ouro"}
-	L["s"] = {"p", " Prata"}
-	L["c"] = {"c", " Cobre"}
-	L["Junk items sold for"] = "Itens de refugo vendidos por"
+	L["g"] = {"o", " ouro"}
+	L["s"] = {"p", " prata"}
+	L["c"] = {"c", " cobre"}
+	L["Junk items sold for"] = "Lixo vendido por"
 	L["Repaired for"] = "Reparado por"
-	L["Repaired from the guild bank for"] = "Reparado com fundos da guilda por"
+	L["Repaired from the guild bank for"] = "Reparado com o banco da guilda por"
 	L["Not enough money to automatically repair!"] = "Dinheiro insuficiente para reparo automático!"
 	return
 end
 
 -- Parli italiano?
 if lang == "itIT" then
-	L["Repair with guild money"] = "Ripara con i soldi della gilda"
+	L["Repair with guild bank funds"] = "Ripara con la banca di gilda"
 	L["Off"] = "Disattivato"
 	L["All the time"] = "Sempre"
 	L["Only in a raid group"] = "Solo in un gruppo di raid"
@@ -262,12 +262,12 @@ if lang == "itIT" then
 	L["Short text"] = "Testo breve"
 	L["Full text"] = "Testo completo"
 	L["Use color formatting"] = "Usa la formattazione a colori"
-	L["g"] = {"o", " Oro"}
-	L["s"] = {"a", " Argento"}
-	L["c"] = {"r", " Rame"}
-	L["Junk items sold for"] = "Oggetti di scarto venduti per"
+	L["g"] = {"o", " oro"}
+	L["s"] = {"a", " argento"}
+	L["c"] = {"r", " rame"}
+	L["Junk items sold for"] = "Cianfrusaglie vendute per"
 	L["Repaired for"] = "Riparato per"
-	L["Repaired from the guild bank for"] = "Riparato con i fondi della gilda per"
+	L["Repaired from the guild bank for"] = "Riparato con la banca di gilda per"
 	L["Not enough money to automatically repair!"] = "Non hai abbastanza denaro per riparare automaticamente!"
 	return
 end

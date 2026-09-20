@@ -55,7 +55,7 @@ local category = Settings.RegisterVerticalLayoutCategory("Good As New")
 
 -- Stay classy, guild dropdown!
 local guildModeSetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_GUILD_MODE", "guildMode",
-	GoodOptions, Settings.VarType.String, L["Repair with guild money"], defaults.guildMode)
+	GoodOptions, Settings.VarType.String, L["Repair with guild bank funds"], defaults.guildMode)
 local function GetGuildModeOptions()
 	local container = Settings.CreateControlTextContainer()
 	container:Add("off", L["Off"])
