@@ -4,8 +4,12 @@ local O = GoodOptions
 
 -- Get in here, Globals!
 local GetContainerItemID = C_Container.GetContainerItemID
+local GetContainerItemInfo = C_Container.GetContainerItemInfo
 local GetContainerNumSlots = C_Container.GetContainerNumSlots
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local GetBagSlotFlag = C_Container.GetBagSlotFlag
+local GetBackpackSellJunkDisabled = C_Container.GetBackpackSellJunkDisabled
+local NUM_TOTAL_EQUIPPED_BAG_SLOTS = NUM_TOTAL_EQUIPPED_BAG_SLOTS
+local ExcludeJunkSell = Enum.BagSlotFlags.ExcludeJunkSell
 local GetItemInfo = C_Item.GetItemInfo
 
 -- Shout it from the rooftops! or don't...
@@ -34,15 +38,24 @@ local function itsShowtime()
 	-- Get this junk outta my face!
 	if C_MerchantFrame.IsSellAllJunkEnabled() then
 		local total = 0
-		for bag = 0, NUM_BAG_SLOTS do
-			local slots = GetContainerNumSlots(bag)
-			if slots > 0 then
-				for slot = 1, slots do
-					local id = GetContainerItemID(bag, slot)
-					if id then
-						local _, _, quality, _, _, _, _, _, _, _, price = GetItemInfo(id)
-						if quality == 0 and price and price > 0 then
-							total = total + price
+		for bag = 0, NUM_TOTAL_EQUIPPED_BAG_SLOTS do
+			local excluded
+			if bag == 0 then
+				excluded = GetBackpackSellJunkDisabled()
+			else
+				excluded = GetBagSlotFlag(bag, ExcludeJunkSell)
+			end
+			if not excluded then
+				local slots = GetContainerNumSlots(bag)
+				if slots > 0 then
+					for slot = 1, slots do
+						local id = GetContainerItemID(bag, slot)
+						if id then
+							local _, _, quality, _, _, _, _, _, _, _, price = GetItemInfo(id)
+							if quality == 0 and price and price > 0 then
+								local info = GetContainerItemInfo(bag, slot)
+								total = total + price * (info and info.stackCount or 1)
+							end
 						end
 					end
 				end
@@ -56,16 +69,15 @@ local function itsShowtime()
 	if not CanMerchantRepair() then return end
 
 	-- Gotta crunch the numbers before we open the wallet!
-	local cost = GetRepairAllCost()
-	local canRepair, spender
-	if cost > 0 then
-		canRepair, spender = CheckRepairStatus(cost)
-	end
+	local cost, repairAvailable = GetRepairAllCost()
+	if cost <= 0 or not repairAvailable then return end -- Nothing broke, nothing to fix!
+
+	local canRepair, spender = CheckRepairStatus(cost)
 
 	-- Last, but not least!
 	if IsModifierKeyDown() and O.useModKey then -- Meh! I'll repair later I guess!
 		return
-	elseif cost > 0 and canRepair then -- My body is ready!
+	elseif canRepair then -- My body is ready!
 		if spender then
 			p(L["Repaired from the guild bank for"], cost)
 		else

@@ -6,7 +6,7 @@ local tinsert = table.insert
 local tconcat = table.concat
 
 -- If no one's home, we're settin' the rules!
-GoodOptions = GoodOptions or {}
+GoodOptions = type(GoodOptions) == "table" and GoodOptions or {}
 local defaults = {
 	guildMode = "off", -- "off", "always", "raid"
 	useModKey = false,
@@ -18,6 +18,12 @@ for k, v in pairs(defaults) do
 	if GoodOptions[k] == nil then
 		GoodOptions[k] = v
 	end
+end
+
+-- Don't trust a stranger's guildMode!
+local validGuildModes = { off = true, always = true, raid = true }
+if not validGuildModes[GoodOptions.guildMode] then
+	GoodOptions.guildMode = defaults.guildMode
 end
 
 -- Get these coins in order!
@@ -42,7 +48,7 @@ end
 -- However you wanna see it, we’ll dress it up nice!
 function ns.formatMoney(cost)
 	local style = GoodOptions.currencyStyle or "coin"
-	if not cost or cost < 0 or type(cost) ~= "number" then return "" end
+	if type(cost) ~= "number" or cost < 0 then return "" end
 	if style == "coin" then
 		return GetCoinTextureString(cost)
 	else
