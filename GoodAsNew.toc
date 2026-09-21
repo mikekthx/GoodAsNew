@@ -7,6 +7,7 @@
 ## Notes-deDE: Verkauft automatisch graue Gegenstände und repariert deine Ausrüstung!
 ## Notes-frFR: Vend automatiquement les objets gris et répare votre équipement !
 ## Notes-esES: ¡Vende automáticamente los objetos grises y repara tu equipo!
+## Notes-esMX: ¡Vende automáticamente los objetos grises y repara tu equipo!
 ## Notes-ruRU: Продаёт серые предметы и чинит снаряжение автоматически!
 ## Notes-koKR: 잡템을 자동으로 판매하고 장비를 수리합니다!
 ## Notes-zhCN: 自动出售灰色物品并修理装备！
@@ -14,8 +15,19 @@
 ## Notes-ptBR: Vende seus itens quebrados e repara seu equipamento automaticamente!
 ## Notes-itIT: Vende automaticamente gli oggetti di scarto e ripara l'equipaggiamento!
 ## SavedVariables: GoodOptions
+## Category: Other
+## Category-deDE: Anderes
+## Category-esES: Otros
+## Category-esMX: Otros
+## Category-frFR: Autre
+## Category-itIT: Altro
+## Category-koKR: 기타
+## Category-ptBR: Outro
+## Category-ruRU: Другое
+## Category-zhCN: 其它
+## Category-zhTW: 其他
 ## X-Category: Quality of Life
-## DefaultState: Enabled
+## X-License: MIT
 
 locale.lua
 config.lua
