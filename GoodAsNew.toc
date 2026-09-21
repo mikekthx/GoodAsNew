@@ -1,20 +1,22 @@
 ## Interface: 16001
-## Author: mikekthx
 ## Title: Good As New
+## Author: mikekthx
 ## Version: v2.0
+## SavedVariables: GoodOptions
 ## IconTexture: Interface\ICONS\ui_embercourt-emoji-elated
+
 ## Notes: Sells your junk items and repairs your gear automatically!
 ## Notes-deDE: Verkauft automatisch graue Gegenstände und repariert deine Ausrüstung!
-## Notes-frFR: Vend automatiquement les objets gris et répare votre équipement !
 ## Notes-esES: ¡Vende automáticamente los objetos grises y repara tu equipo!
 ## Notes-esMX: ¡Vende automáticamente los objetos grises y repara tu equipo!
-## Notes-ruRU: Продаёт серые предметы и чинит снаряжение автоматически!
+## Notes-frFR: Vend automatiquement les objets gris et répare votre équipement !
+## Notes-itIT: Vende automaticamente gli oggetti di scarto e ripara l'equipaggiamento!
 ## Notes-koKR: 잡템을 자동으로 판매하고 장비를 수리합니다!
+## Notes-ptBR: Vende seus itens quebrados e repara seu equipamento automaticamente!
+## Notes-ruRU: Продаёт серые предметы и чинит снаряжение автоматически!
 ## Notes-zhCN: 自动出售灰色物品并修理装备！
 ## Notes-zhTW: 自動販售灰色物品並修理裝備！
-## Notes-ptBR: Vende seus itens quebrados e repara seu equipamento automaticamente!
-## Notes-itIT: Vende automaticamente gli oggetti di scarto e ripara l'equipaggiamento!
-## SavedVariables: GoodOptions
+
 ## Category: Other
 ## Category-deDE: Anderes
 ## Category-esES: Otros
@@ -26,6 +28,7 @@
 ## Category-ruRU: Другое
 ## Category-zhCN: 其它
 ## Category-zhTW: 其他
+
 ## X-Category: Quality of Life
 ## X-License: MIT
 
