@@ -2,6 +2,7 @@
 ## Author: mikekthx
 ## Title: Good As New
 ## Version: v2.0
+## IconTexture: Interface\ICONS\ui_embercourt-emoji-elated
 ## Notes: Sells your junk items and repairs your gear automatically!
 ## Notes-deDE: Verkauft automatisch graue Gegenstände und repariert deine Ausrüstung!
 ## Notes-frFR: Vend automatiquement les objets gris et répare votre équipement !
