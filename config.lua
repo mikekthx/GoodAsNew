@@ -11,7 +11,8 @@ local defaults = {
 	guildMode = "off", -- "off", "always", "raid"
 	useModKey = false,
 	printMessage = true,
-	currencyStyle = "short", -- "short", "full", "coin"
+	mergeMoneySummary = true,
+	currencyStyle = "coin", -- "short", "full", "coin"
 	useColor = true,
 }
 for k, v in pairs(defaults) do
@@ -80,6 +81,11 @@ Settings.CreateCheckbox(category, modKeySetting)
 local messageSetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_PRINT_MESSAGE", "printMessage",
 	GoodOptions, Settings.VarType.Boolean, L["Show messages in chat"], defaults.printMessage)
 Settings.CreateCheckbox(category, messageSetting)
+
+-- Two receipts are one too many!
+local mergeMoneySummarySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_MERGE_MONEY_SUMMARY", "mergeMoneySummary",
+	GoodOptions, Settings.VarType.Boolean, L["Combine with Blizzard's money summary at vendors"], defaults.mergeMoneySummary)
+Settings.CreateCheckbox(category, mergeMoneySummarySetting, L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."])
 
 -- Time to let the people choose.
 local currencySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_CURRENCY_STYLE", "currencyStyle",

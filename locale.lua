@@ -20,6 +20,9 @@ if lang == "enUS" or lang == "enGB" then
 	L["Only in a raid group"] = "Only in a raid group"
 	L["Hold Modifier Key to prevent repairing"] = "Hold Modifier Key to prevent repairing"
 	L["Show messages in chat"] = "Show messages in chat"
+	L["Combine with Blizzard's money summary at vendors"] = "Combine with Blizzard's money summary at vendors"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."
 	L["Currency display style:"] = "Currency display style:"
 	L["Display Warning"] = "Display Warning"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
@@ -40,16 +43,19 @@ end
 
 -- Sprichst du Deutsch?
 if lang == "deDE" then
-	L["Repair with guild bank funds"] = "Mit der Gildenbank reparieren"
+	L["Repair with guild bank funds"] = "Mit Mitteln der Gildenbank reparieren"
 	L["Off"] = "Aus"
 	L["All the time"] = "Immer"
 	L["Only in a raid group"] = "Nur in einer Schlachtzugsgruppe"
 	L["Hold Modifier Key to prevent repairing"] = "Reparatur mit gedrückter Mod-Taste verhindern"
 	L["Show messages in chat"] = "Nachrichten im Chat anzeigen"
+	L["Combine with Blizzard's money summary at vendors"] = "Mit Blizzards Geldübersicht bei Händlern kombinieren"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Fügt die Verkaufs- und Reparatursummen dieses Addons an Blizzards eigene Geldmeldung bei Händlern an, statt sie separat auszugeben. Werden Blizzards Geldmeldungen in deinen Chat-Einstellungen deaktiviert, erscheinen wieder eigene Meldungen."
 	L["Currency display style:"] = "Anzeigeformat der Währung:"
 	L["Display Warning"] = "Anzeige-Warnung"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
-	"Die Anzeige von Münzsymbolen kann visuelle Artefakte enthalten.\nVerwenden Sie Textoptionen für eine saubere Darstellung."
+	"Die Anzeige von Münzsymbolen kann visuelle Artefakte enthalten.\nVerwende Textoptionen für eine sauberere Darstellung."
 	L["Coin icons"] = "Münzsymbole"
 	L["Short text"] = "Kurztext"
 	L["Full text"] = "Volltext"
@@ -59,19 +65,22 @@ if lang == "deDE" then
 	L["c"] = { "k", " Kupfer" }
 	L["Junk items sold for"] = "Plunder verkauft für"
 	L["Repaired for"] = "Repariert für"
-	L["Repaired from the guild bank for"] = "Aus der Gildenbank repariert für"
+	L["Repaired from the guild bank for"] = "Mit Mitteln der Gildenbank repariert für"
 	L["Not enough money to automatically repair!"] = "Nicht genug Geld zum automatischen Reparieren!"
 	return
 end
 
 -- ¿Hablas español?
 if lang == "esES" or lang == "esMX" then
-	L["Repair with guild bank funds"] = "Reparar con el banco de hermandad"
+	L["Repair with guild bank funds"] = "Reparar con fondos del banco de hermandad"
 	L["Off"] = "Desactivado"
 	L["All the time"] = "Siempre"
 	L["Only in a raid group"] = "Solo en una banda"
 	L["Hold Modifier Key to prevent repairing"] = "Mantén una tecla modificadora para evitar la reparación"
 	L["Show messages in chat"] = "Mostrar mensajes en el chat"
+	L["Combine with Blizzard's money summary at vendors"] = "Combinar con el resumen de dinero de Blizzard en los mercaderes"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Añade las sumas de chatarra vendida y reparaciones de este addon al propio mensaje de dinero de Blizzard en los mercaderes, en vez de mostrarlas por separado. Si desactivas los mensajes de dinero de Blizzard en tus opciones de chat, volverá a mostrar mensajes separados."
 	L["Currency display style:"] = "Estilo de visualización de la moneda:"
 	L["Display Warning"] = "Advertencia de visualización"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
@@ -85,19 +94,22 @@ if lang == "esES" or lang == "esMX" then
 	L["c"] = { "c", " cobre" }
 	L["Junk items sold for"] = "Chatarra vendida por"
 	L["Repaired for"] = "Reparado por"
-	L["Repaired from the guild bank for"] = "Reparado con el banco de hermandad por"
+	L["Repaired from the guild bank for"] = "Reparado con fondos del banco de hermandad por"
 	L["Not enough money to automatically repair!"] = "¡No hay suficiente dinero para reparar automáticamente!"
 	return
 end
 
 -- Parlez-vous français ?
 if lang == "frFR" then
-	L["Repair with guild bank funds"] = "Réparer avec la banque de guilde"
+	L["Repair with guild bank funds"] = "Réparer avec les fonds de la banque de guilde"
 	L["Off"] = "Désactivé"
 	L["All the time"] = "Tout le temps"
 	L["Only in a raid group"] = "Uniquement en groupe de raid"
 	L["Hold Modifier Key to prevent repairing"] = "Maintenir une touche modificatrice pour bloquer la réparation"
 	L["Show messages in chat"] = "Afficher les messages dans le chat"
+	L["Combine with Blizzard's money summary at vendors"] = "Combiner avec le résumé d’argent de Blizzard chez les marchands"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Ajoute les sommes de camelote vendue et de réparations de cet addon au message d’argent de Blizzard chez les marchands, au lieu de les afficher séparément. Si les messages d’argent de Blizzard sont désactivés dans vos options de chat, des messages séparés réapparaissent."
 	L["Currency display style:"] = "Style d’affichage de la monnaie :"
 	L["Display Warning"] = "Avertissement d’affichage"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
@@ -111,19 +123,22 @@ if lang == "frFR" then
 	L["c"] = { "pc", " cuivre" }
 	L["Junk items sold for"] = "Camelote vendue pour"
 	L["Repaired for"] = "Réparé pour"
-	L["Repaired from the guild bank for"] = "Réparé avec la banque de guilde pour"
+	L["Repaired from the guild bank for"] = "Réparé avec les fonds de la banque de guilde pour"
 	L["Not enough money to automatically repair!"] = "Pas assez d'argent pour réparer automatiquement !"
 	return
 end
 
 -- Parli italiano?
 if lang == "itIT" then
-	L["Repair with guild bank funds"] = "Ripara con la banca di gilda"
+	L["Repair with guild bank funds"] = "Ripara con i fondi della banca di gilda"
 	L["Off"] = "Disattivato"
 	L["All the time"] = "Sempre"
 	L["Only in a raid group"] = "Solo in un gruppo di raid"
 	L["Hold Modifier Key to prevent repairing"] = "Tieni premuto un tasto modificatore per evitare la riparazione"
 	L["Show messages in chat"] = "Mostra messaggi in chat"
+	L["Combine with Blizzard's money summary at vendors"] = "Combina con il riepilogo del denaro di Blizzard dai mercanti"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Aggiunge gli importi della vendita delle cianfrusaglie e delle riparazioni di questo addon al messaggio di denaro di Blizzard presso i mercanti, invece di mostrarli separatamente. Se disattivi i messaggi di denaro di Blizzard nelle impostazioni della chat, verranno mostrati di nuovo messaggi separati."
 	L["Currency display style:"] = "Stile di visualizzazione della valuta:"
 	L["Display Warning"] = "Avviso di visualizzazione"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
@@ -137,7 +152,7 @@ if lang == "itIT" then
 	L["c"] = { "r", " rame" }
 	L["Junk items sold for"] = "Cianfrusaglie vendute per"
 	L["Repaired for"] = "Riparato per"
-	L["Repaired from the guild bank for"] = "Riparato con la banca di gilda per"
+	L["Repaired from the guild bank for"] = "Riparato con i fondi della banca di gilda per"
 	L["Not enough money to automatically repair!"] = "Non hai abbastanza denaro per riparare automaticamente!"
 	return
 end
@@ -150,11 +165,14 @@ if lang == "koKR" then
 	L["Only in a raid group"] = "공격대일 때만"
 	L["Hold Modifier Key to prevent repairing"] = "보조 키를 눌러 수리 방지"
 	L["Show messages in chat"] = "채팅에 메시지 표시"
+	L["Combine with Blizzard's money summary at vendors"] = "상인 창에서 블리자드 화폐 요약과 통합"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"이 애드온의 잡동사니 판매 및 수리 금액을 별도로 표시하는 대신 상인 창에서 블리자드의 화폐 메시지에 추가합니다. 채팅 설정에서 블리자드의 화폐 메시지를 꺼두었다면 별도의 메시지로 표시됩니다."
 	L["Currency display style:"] = "통화 표시 형식:"
 	L["Display Warning"] = "표시 경고"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
 	"동전 아이콘 표시 시 시각적 결함이 있을 수 있습니다.\n더 깔끔한 표시를 위해 텍스트 옵션을 고려하세요."
-	L["Coin icons"] = "아이콘"
+	L["Coin icons"] = "동전 아이콘"
 	L["Short text"] = "짧은 텍스트"
 	L["Full text"] = "전체 텍스트"
 	L["Use color formatting"] = "색상 형식 사용"
@@ -170,12 +188,15 @@ end
 
 -- Você fala português?
 if lang == "ptBR" then
-	L["Repair with guild bank funds"] = "Reparar com o banco da guilda"
+	L["Repair with guild bank funds"] = "Reparar com fundos do banco da guilda"
 	L["Off"] = "Desativado"
 	L["All the time"] = "Sempre"
 	L["Only in a raid group"] = "Apenas em grupo de raide"
 	L["Hold Modifier Key to prevent repairing"] = "Segure uma tecla modificadora para evitar o reparo"
 	L["Show messages in chat"] = "Mostrar mensagens no chat"
+	L["Combine with Blizzard's money summary at vendors"] = "Combinar com o resumo de dinheiro da Blizzard nos mercadores"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Adiciona os totais de lixo vendido e reparos deste addon à própria mensagem de dinheiro da Blizzard nos mercadores, em vez de exibi-los separadamente. Se as mensagens de dinheiro da Blizzard estiverem desativadas nas suas configurações de chat, as mensagens separadas voltam a aparecer."
 	L["Currency display style:"] = "Estilo de exibição da moeda:"
 	L["Display Warning"] = "Aviso de exibição"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
@@ -189,7 +210,7 @@ if lang == "ptBR" then
 	L["c"] = { "c", " cobre" }
 	L["Junk items sold for"] = "Lixo vendido por"
 	L["Repaired for"] = "Reparado por"
-	L["Repaired from the guild bank for"] = "Reparado com o banco da guilda por"
+	L["Repaired from the guild bank for"] = "Reparado com fundos do banco da guilda por"
 	L["Not enough money to automatically repair!"] = "Dinheiro insuficiente para reparo automático!"
 	return
 end
@@ -202,17 +223,20 @@ if lang == "ruRU" then
 	L["Only in a raid group"] = "Только в рейде"
 	L["Hold Modifier Key to prevent repairing"] = "Зажмите клавишу-модификатор, чтобы не чинить"
 	L["Show messages in chat"] = "Показывать сообщения в чате"
+	L["Combine with Blizzard's money summary at vendors"] = "Объединять со стандартной сводкой денег у торговцев"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"Добавляет суммы за проданный хлам и ремонт этого аддона к собственному сообщению Blizzard о деньгах у торговцев вместо отдельного вывода. Если сообщения Blizzard о деньгах отключены в настройках чата, снова появятся отдельные сообщения."
 	L["Currency display style:"] = "Стиль отображения валюты:"
-	L["Display Warning"] = "Предупреждение отображения"
+	L["Display Warning"] = "Предупреждение об отображении"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
 	"Отображение монет может содержать визуальные артефакты.\nРекомендуется использовать текстовый режим для чистоты отображения."
 	L["Coin icons"] = "Значки монет"
 	L["Short text"] = "Краткий текст"
 	L["Full text"] = "Полный текст"
 	L["Use color formatting"] = "Использовать цветное оформление"
-	L["g"] = { "з", " золото" }
-	L["s"] = { "с", " серебро" }
-	L["c"] = { "м", " медь" }
+	L["g"] = { "з", " золота" }
+	L["s"] = { "с", " серебра" }
+	L["c"] = { "м", " меди" }
 	L["Junk items sold for"] = "Хлам продан за"
 	L["Repaired for"] = "Отремонтировано за"
 	L["Repaired from the guild bank for"] = "Отремонтировано из банка гильдии за"
@@ -228,11 +252,14 @@ if lang == "zhCN" then
 	L["Only in a raid group"] = "仅在团队中"
 	L["Hold Modifier Key to prevent repairing"] = "按住修饰键可防修理"
 	L["Show messages in chat"] = "在聊天中显示信息"
+	L["Combine with Blizzard's money summary at vendors"] = "在商人处与暴雪的金钱汇总合并显示"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"在商人处将本插件出售垃圾物品和修理的金额附加到暴雪自身的金钱提示中，而不是单独显示。如果你在聊天设置中关闭了暴雪的金钱提示，将恢复单独显示。"
 	L["Currency display style:"] = "货币显示样式："
 	L["Display Warning"] = "显示警告"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
 	"货币图标显示可能存在视觉问题。\n建议使用文本样式以获得更清晰的显示效果。"
-	L["Coin icons"] = "图标"
+	L["Coin icons"] = "货币图标"
 	L["Short text"] = "简短文本"
 	L["Full text"] = "完整文本"
 	L["Use color formatting"] = "使用颜色格式"
@@ -254,11 +281,14 @@ if lang == "zhTW" then
 	L["Only in a raid group"] = "僅限團隊中"
 	L["Hold Modifier Key to prevent repairing"] = "按住組合鍵可防修理"
 	L["Show messages in chat"] = "在聊天中顯示訊息"
+	L["Combine with Blizzard's money summary at vendors"] = "在商人處與暴雪的金錢彙總合併顯示"
+	L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."] =
+	"在商人處將本插件出售垃圾物品和修理的金額附加到暴雪自身的金錢提示中，而不是單獨顯示。如果你在聊天設定中關閉了暴雪的金錢提示，將恢復單獨顯示。"
 	L["Currency display style:"] = "貨幣顯示樣式："
 	L["Display Warning"] = "顯示警告"
 	L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."] =
 	"硬幣圖示顯示可能會產生視覺異常。\n建議使用文字選項以獲得更清晰的顯示效果。"
-	L["Coin icons"] = "圖示"
+	L["Coin icons"] = "硬幣圖示"
 	L["Short text"] = "簡短文字"
 	L["Full text"] = "完整文字"
 	L["Use color formatting"] = "使用顏色格式"
