@@ -13,81 +13,84 @@ local ExcludeJunkSell = Enum.BagSlotFlags.ExcludeJunkSell
 local GetItemInfo = C_Item.GetItemInfo
 
 -- Shout it from the rooftops! or don't...
-local function p(msg, cost)
+local function p(msg, cost, negative)
 	if O.printMessage then
-		print(msg, ns.formatMoney(cost))
+		print(msg, ns.formatMoney(cost, negative))
 	end
 end
 
 -- Check the funds!
 local function CheckRepairStatus(cost)
 	-- Time to peek inside the piggy banks!
-	local cash, hoard = GetMoney(), GetGuildBankWithdrawMoney()
+	local cash, credit = GetMoney(), GetGuildBankWithdrawMoney()
 	if (O.guildMode == "always" or (O.guildMode == "raid" and IsInRaid())) and
-	  CanGuildBankRepair() and
-	  cost <= GetGuildBankMoney() and
-	  (cost <= hoard or hoard == -1) then
+		CanGuildBankRepair() and
+		cost <= GetGuildBankMoney() and
+		(cost <= credit or credit == -1) then
 		return true, true
 	elseif cost <= cash then
 		return true, nil
 	end
 end
 
--- Will Blizzard's own vendor money line actually show up anywhere? If the player's
--- turned off "Money" under Chat Settings, or turned off our own messages, it won't --
--- so there's nothing to merge into and we should just print our own line like before.
-local function MoneyMessageWillShow()
-	if not O.printMessage or not O.mergeMoneySummary then return false end
-	local list = DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.messageTypeList
-	if not list then return false end
-	for _, messageType in pairs(list) do
-		if messageType == "MONEY" then return true end
-	end
-	return false
-end
-
--- Queue this up to ride along on Blizzard's own line, or just say it ourselves.
+-- Queue this up to ride along on Blizzard's own shout, or just holler it ourselves!
 local pending
-local function Announce(msg, cost)
-	if MoneyMessageWillShow() then
-		pending = pending or {}
-		pending[#pending + 1] = { msg = msg, cost = cost }
-	else
-		p(msg, cost)
+local originalAddMessage
+
+-- Nothing left to catch, back to normal!
+local function RestoreAddMessage()
+	if originalAddMessage then
+		DEFAULT_CHAT_FRAME.AddMessage = originalAddMessage
+		originalAddMessage = nil
 	end
 end
 
--- Blizzard's client fires a real CHAT_MSG_MONEY line summarizing the whole vendor visit.
--- Rather than suppress it, ride our own totals along on the end of it -- a filter callback
--- can return (false, newText, ...restOfOriginalArgs) to rewrite a message instead of just
--- discarding it (confirmed in ChatFrameFilters.lua's ProcessFilters). If Announce() never
--- queued anything for this event, leave it completely untouched -- money gained from
--- something other than our own sale/repair (a manual sale, a trade, looted gold) should
--- never be rewritten.
---
--- Each chat frame/tab listening for "Money" processes this event independently and calls
--- this filter separately, all synchronously within the same tick. Clearing `pending` the
--- instant the first one reads it would leave every other frame with Blizzard's unmerged
--- text -- so the clear is deferred a tick instead, letting every frame see the same queued
--- totals while still guaranteeing a later, unrelated money event (which can only arrive on
--- some future tick) starts from a clean slate.
-ChatFrameUtil.AddMessageEventFilter("CHAT_MSG_MONEY", function(_, _, text, ...)
-	if not pending then return false end
+-- Steal Blizzard's own wording instead of playing translator ourselves!
+local expectedPrefix = GENERIC_MONEY_GAINED_RECEIPT and GENERIC_MONEY_GAINED_RECEIPT:match("^(.-)%%s")
+if expectedPrefix == "" then expectedPrefix = nil end
+
+-- Dress down the wrapper so the numbers do the talking!
+local function Gray(str)
+	return O.useColor and ("|cff9d9d9d" .. str .. "|r") or str
+end
+
+-- Caught it! Splice our total on and let it through.
+local function InterceptedAddMessage(chatFrame, text, ...)
+	if type(text) ~= "string" or not expectedPrefix or not text:find(expectedPrefix, 1, true) then
+		return originalAddMessage(chatFrame, text, ...)
+	end
+	local realAddMessage = originalAddMessage
+	RestoreAddMessage()
 	local parts = {}
 	for _, entry in ipairs(pending) do
-		parts[#parts + 1] = entry.msg .. " " .. ns.formatMoney(entry.cost)
+		parts[#parts + 1] = Gray(entry.msg) .. " " .. ns.formatMoney(entry.cost, entry.negative)
 	end
-	-- Mark this queue consumed *before* the deferred clear runs, so MERCHANT_CLOSED can
-	-- tell "already merged, just waiting on the timer" apart from "never got a chat frame
-	-- to merge into" if it fires in that gap -- otherwise it'd print our fallback lines on
-	-- top of the line we just merged into.
 	pending.merged = true
-	local thisVisit = pending
-	C_Timer.After(0, function()
-		if pending == thisVisit then pending = nil end
-	end)
-	return false, text .. " (" .. table.concat(parts, ", ") .. ")", ...
-end)
+	pending = nil
+	return realAddMessage(chatFrame, text .. " " .. Gray("(") .. table.concat(parts, Gray(", ")) .. Gray(")"), ...)
+end
+
+local function Announce(msg, cost, negative)
+	if O.printMessage and O.mergeMoneySummary and expectedPrefix then
+		pending = pending or {}
+		pending[#pending + 1] = { msg = msg, cost = cost, negative = negative }
+		if not originalAddMessage then
+			originalAddMessage = DEFAULT_CHAT_FRAME.AddMessage
+			DEFAULT_CHAT_FRAME.AddMessage = InterceptedAddMessage
+		end
+	else
+		p(msg, cost, negative)
+	end
+end
+
+-- Nobody came to carry it? Fine, we'll shout it ourselves!
+local function FlushPending(visit)
+	if not visit.merged then
+		for _, entry in ipairs(visit) do
+			p(entry.msg, entry.cost, entry.negative)
+		end
+	end
+end
 
 -- Let's get ready to rumble!
 local function itsShowtime()
@@ -118,7 +121,7 @@ local function itsShowtime()
 			end
 		end
 		C_MerchantFrame.SellAllJunkItems()
-		if total > 0 then Announce(L["Junk items sold for"], total) end
+		if total > 0 then Announce(L["Junk sold for"], total) end
 	end
 
 	-- If this jabroni can't repair us then fuhgeddaboudit!
@@ -128,6 +131,7 @@ local function itsShowtime()
 	local cost, repairAvailable = GetRepairAllCost()
 	if cost <= 0 or not repairAvailable then return end -- Nothing broke, nothing to fix!
 
+	-- See who's picking up the tab!
 	local canRepair, spender = CheckRepairStatus(cost)
 
 	-- Last, but not least!
@@ -135,9 +139,9 @@ local function itsShowtime()
 		return
 	elseif canRepair then -- My body is ready!
 		if spender then
-			Announce(L["Repaired from the guild bank for"], cost)
+			Announce(L["Repaired from the guild bank for"], cost, true)
 		else
-			Announce(L["Repaired for"], cost)
+			Announce(L["Repaired for"], cost, true)
 		end
 		RepairAllItems(spender)
 	else -- Pocket lint detected. We’re broke, baby!
@@ -151,12 +155,15 @@ f:SetScript("OnEvent", function(_, event)
 	if event == "MERCHANT_SHOW" then
 		itsShowtime()
 	elseif pending then -- MERCHANT_CLOSED
-		if not pending.merged then -- CHAT_MSG_MONEY never showed up to carry our totals
-			for _, entry in ipairs(pending) do
-				p(entry.msg, entry.cost)
+		-- Give Blizzard's line a couple seconds to strut in before we throw in the towel!
+		local thisVisit = pending
+		C_Timer.After(2, function()
+			if pending == thisVisit then
+				RestoreAddMessage()
+				FlushPending(thisVisit)
+				pending = nil
 			end
-		end
-		pending = nil
+		end)
 	end
 end)
 f:RegisterEvent("MERCHANT_SHOW")

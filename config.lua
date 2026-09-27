@@ -47,13 +47,19 @@ function ns.GetCoinText(amount)
 end
 
 -- However you wanna see it, we’ll dress it up nice!
-function ns.formatMoney(cost)
+function ns.formatMoney(cost, negative)
 	local style = GoodOptions.currencyStyle or "coin"
 	if type(cost) ~= "number" or cost < 0 then return "" end
+	local sign = negative and "-" or ""
 	if style == "coin" then
-		return GetCoinTextureString(cost)
+		local _, fontHeight = DEFAULT_CHAT_FRAME:GetFont()
+		local coinText = sign .. C_CurrencyInfo.GetCoinTextureString(cost, fontHeight or 14)
+		if GoodOptions.useColor then
+			return "|cffffffff" .. coinText .. "|r"
+		end
+		return coinText
 	else
-		return ns.GetCoinText(cost)
+		return sign .. ns.GetCoinText(cost)
 	end
 end
 
@@ -85,9 +91,9 @@ Settings.CreateCheckbox(category, messageSetting)
 -- Two receipts are one too many!
 local mergeMoneySummarySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_MERGE_MONEY_SUMMARY", "mergeMoneySummary",
 	GoodOptions, Settings.VarType.Boolean, L["Combine with Blizzard's money summary at vendors"], defaults.mergeMoneySummary)
-Settings.CreateCheckbox(category, mergeMoneySummarySetting, L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to separate messages if Blizzard's money messages are turned off in your chat settings."])
+Settings.CreateCheckbox(category, mergeMoneySummarySetting, L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to a separate message if nothing shows up to merge into within a couple seconds."])
 
--- Time to let the people choose.
+-- Time to let the people choose!
 local currencySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_CURRENCY_STYLE", "currencyStyle",
 	GoodOptions, Settings.VarType.String, L["Currency display style:"], defaults.currencyStyle)
 local function GetCurrencyStyleOptions()
