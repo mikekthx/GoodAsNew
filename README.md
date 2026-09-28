@@ -5,16 +5,16 @@ Let the guild pay the bill, or handle it yourself like a pro.
 
 ## 🧠 What It Does
 
-- Sells all **gray-quality junk** from your bags when visiting a vendor
-- Automatically **repairs your gear** — with your gold or your guild's. Option to only use guild funds while in a raid group
-- Optional: Hold a **modifier key** to skip repairing
+- Sells all **gray-quality junk** from your bags when visiting a vendor (bags you've set to ignore junk selling are left alone)
+- Automatically **repairs your gear** — with your gold or your guild's. Option to only use guild funds while in a raid group. If the guild can't cover the whole bill, you pay for it yourself
+- Optional: Hold **Shift, Ctrl, or Alt** while opening a vendor to skip repairing
 - Fully configurable in the **Options > AddOns** panel
 
 ## 🔧 Features
 
-- 🛠️ Auto Repair (personal or guild bank)
-- 💸 Auto Junk Sell
-- 🗨️ Optional chat messages
+- 💸 Auto Junk Sell (can be turned off)
+- 🛠️ Auto Repair, personal or guild bank (can be turned off)
+- 🗨️ Optional chat messages, which can ride along on Blizzard's own "You gained" vendor message instead of adding a separate line
 - 🎨 Choose how gold is displayed in chat: `12g 34s 56c`, `12 Gold 34 Silver 56 Copper` or classic coin icons
 
 ## 🌍 Localization
@@ -27,7 +27,7 @@ Currently supported languages:
 - 🇫🇷 **French**
 - 🇪🇸 **Spanish**
 - 🇷🇺 **Russian**
-- 🇧🇷 **Portuguese (Brazil)**
+- 🇧🇷 **Portuguese** (Brazilian translation, also used for Portugal)
 - 🇮🇹 **Italian**
 - 🇰🇷 **Korean**
 - 🇨🇳 **Simplified Chinese**
@@ -50,11 +50,12 @@ I'll handle the rest!
 ## 📦 Installation
 
 1. Download or clone this repo into your WoW AddOns folder: `Interface/AddOns/GoodAsNew`
+   - Using GitHub's **Download ZIP**? The folder inside will be named `GoodAsNew-main` — rename it to exactly `GoodAsNew` or the game won't load it.
 2. Restart your game or reload (`/reload`) while playing if you're just updating.
 
 ## ⚙️ Options
 
-Access the settings from the main menu: `ESC > Options > AddOns > Good As New`
+Access the settings from the main menu: `ESC > Options > AddOns > Good As New`, or type `/gan` (or `/goodasnew`) in chat.
 
 ## 📋 Requirements
 

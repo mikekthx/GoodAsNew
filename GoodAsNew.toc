@@ -12,7 +12,7 @@
 ## Notes-frFR: Vend automatiquement les objets gris et répare votre équipement !
 ## Notes-itIT: Vende automaticamente gli oggetti di scarto e ripara l'equipaggiamento!
 ## Notes-koKR: 잡템을 자동으로 판매하고 장비를 수리합니다!
-## Notes-ptBR: Vende seus itens quebrados e repara seu equipamento automaticamente!
+## Notes-ptBR: Vende automaticamente seus itens cinzentos (lixo) e repara seu equipamento!
 ## Notes-ruRU: Продаёт серые предметы и чинит снаряжение автоматически!
 ## Notes-zhCN: 自动出售灰色物品并修理装备！
 ## Notes-zhTW: 自動販售灰色物品並修理裝備！

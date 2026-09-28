@@ -1,4 +1,4 @@
-local _, ns = ...
+local addonName, ns = ...
 local L = ns.L
 
 -- It's about to go down, so grab your globals!
@@ -6,8 +6,9 @@ local tinsert = table.insert
 local tconcat = table.concat
 
 -- If no one's home, we're settin' the rules!
-GoodOptions = type(GoodOptions) == "table" and GoodOptions or {}
 local defaults = {
+	autoSell = true,
+	autoRepair = true,
 	guildMode = "off", -- "off", "always", "raid"
 	useModKey = false,
 	printMessage = true,
@@ -15,28 +16,23 @@ local defaults = {
 	currencyStyle = "coin", -- "short", "full", "coin"
 	useColor = true,
 }
-for k, v in pairs(defaults) do
-	if GoodOptions[k] == nil then
-		GoodOptions[k] = v
-	end
-end
 
--- Don't trust a stranger's guildMode!
-local validGuildModes = { off = true, always = true, raid = true }
-if not validGuildModes[GoodOptions.guildMode] then
-	GoodOptions.guildMode = defaults.guildMode
-end
+-- Don't trust a stranger's picks!
+local validChoices = {
+	guildMode = { off = true, always = true, raid = true },
+	currencyStyle = { short = true, full = true, coin = true },
+}
 
 -- Get these coins in order!
-function ns.GetCoinText(amount)
+function ns.GetCoinText(amount, full, colored)
 	local g = floor(amount / 10000)
 	local s = floor((amount % 10000) / 100)
 	local c = amount % 100
-	local txt = GoodOptions.currencyStyle == "full" and 2 or 1
-	local gc = GoodOptions.useColor and "|cffffd700" or ""
-	local sc = GoodOptions.useColor and "|cffc7c7cf" or ""
-	local cc = GoodOptions.useColor and "|cffeda55f" or ""
-	local rc = GoodOptions.useColor and "|r" or ""
+	local txt = full and 2 or 1
+	local gc = colored and "|cffffd700" or ""
+	local sc = colored and "|cffc7c7cf" or ""
+	local cc = colored and "|cffeda55f" or ""
+	local rc = colored and "|r" or ""
 
 	local parts = {}
 	if g > 0 then tinsert(parts, format("%d%s%s%s", g, gc, L.g[txt], rc)) end
@@ -59,56 +55,110 @@ function ns.formatMoney(cost, negative)
 		end
 		return coinText
 	else
-		return sign .. ns.GetCoinText(cost)
+		return sign .. ns.GetCoinText(cost, style == "full", GoodOptions.useColor)
 	end
 end
 
--- Roll out the red carpet, here comes the star of the show!
-local category = Settings.RegisterVerticalLayoutCategory("Good As New")
+-- Saved settings don't show up until the client's done loading us, so hold your horses!
+EventUtil.ContinueOnAddOnLoaded(addonName, function()
+	-- Unpack the saved stuff, and if it's a mess in there, tidy up!
+	GoodOptions = type(GoodOptions) == "table" and GoodOptions or {}
+	for k, v in pairs(defaults) do
+		if type(GoodOptions[k]) ~= type(v) then
+			GoodOptions[k] = v
+		end
+	end
+	for k, choices in pairs(validChoices) do
+		if not choices[GoodOptions[k]] then
+			GoodOptions[k] = defaults[k]
+		end
+	end
 
--- Stay classy, guild dropdown!
-local guildModeSetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_GUILD_MODE", "guildMode",
-	GoodOptions, Settings.VarType.String, L["Repair with guild bank funds"], defaults.guildMode)
-local function GetGuildModeOptions()
-	local container = Settings.CreateControlTextContainer()
-	container:Add("off", L["Off"])
-	container:Add("always", L["All the time"])
-	container:Add("raid", L["Only in a raid group"])
-	return container:GetData()
-end
-Settings.CreateDropdown(category, guildModeSetting, GetGuildModeOptions)
+	-- Roll out the red carpet, here comes the star of the show!
+	local category, layout = Settings.RegisterVerticalLayoutCategory("Good As New")
 
--- For when you wanna take control!
-local modKeySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_USE_MOD_KEY", "useModKey",
-	GoodOptions, Settings.VarType.Boolean, L["Hold Modifier Key to prevent repairing"], defaults.useModKey)
-Settings.CreateCheckbox(category, modKeySetting)
+	-- A few little helpers to cut down on the paperwork!
+	local function Header(name)
+		layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(name))
+	end
 
--- Talk to me, baby! or not...
-local messageSetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_PRINT_MESSAGE", "printMessage",
-	GoodOptions, Settings.VarType.Boolean, L["Show messages in chat"], defaults.printMessage)
-Settings.CreateCheckbox(category, messageSetting)
+	local function Checkbox(variable, key, name, tooltip)
+		local setting = Settings.RegisterAddOnSetting(category, variable, key, GoodOptions,
+			Settings.VarType.Boolean, name, defaults[key])
+		return Settings.CreateCheckbox(category, setting, tooltip), setting
+	end
 
--- Two receipts are one too many!
-local mergeMoneySummarySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_MERGE_MONEY_SUMMARY", "mergeMoneySummary",
-	GoodOptions, Settings.VarType.Boolean, L["Combine with Blizzard's money summary at vendors"], defaults.mergeMoneySummary)
-Settings.CreateCheckbox(category, mergeMoneySummarySetting, L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to a separate message if nothing shows up to merge into within a couple seconds."])
+	local function Dropdown(variable, key, name, options, tooltip)
+		local setting = Settings.RegisterAddOnSetting(category, variable, key, GoodOptions,
+			Settings.VarType.String, name, defaults[key])
+		return Settings.CreateDropdown(category, setting, options, tooltip)
+	end
 
--- Time to let the people choose!
-local currencySetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_CURRENCY_STYLE", "currencyStyle",
-	GoodOptions, Settings.VarType.String, L["Currency display style:"], defaults.currencyStyle)
-local function GetCurrencyStyleOptions()
-	local container = Settings.CreateControlTextContainer()
-	container:Add("short", L["Short text"])
-	container:Add("full", L["Full text"])
-	container:Add("coin", L["Coin icons"], L["Display Warning"] .. "\n" .. L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."])
-	return container:GetData()
-end
-Settings.CreateDropdown(category, currencySetting, GetCurrencyStyleOptions)
+	-- First up, taking out the trash!
+	Header(L["Junk"])
+	Checkbox("GOODASNEW_AUTO_SELL", "autoSell", L["Sell junk automatically"],
+		L["Sells all gray-quality items when you open a vendor, the same as Blizzard's Sell All Junk button but without the confirmation. Bags set to ignore junk selling are left alone."])
 
--- Bold AND beautiful!
-local colorSetting = Settings.RegisterAddOnSetting(category, "GOODASNEW_USE_COLOR", "useColor",
-	GoodOptions, Settings.VarType.Boolean, L["Use color formatting"], defaults.useColor)
-Settings.CreateCheckbox(category, colorSetting)
+	-- Patch me up, doc!
+	Header(L["Repairs"])
+	local repairInit, repairSetting = Checkbox("GOODASNEW_AUTO_REPAIR", "autoRepair", L["Repair gear automatically"],
+		L["Repairs all of your gear when you visit a vendor that can repair."])
+	local function IsRepairing() return repairSetting:GetValue() end
 
--- And now... the main event!
-Settings.RegisterAddOnCategory(category)
+	-- Stay classy, guild dropdown!
+	local function GetGuildModeOptions()
+		local container = Settings.CreateControlTextContainer()
+		container:Add("off", L["Off"])
+		container:Add("always", L["All the time"])
+		container:Add("raid", L["Only in a raid group"])
+		return container:GetData()
+	end
+	Dropdown("GOODASNEW_GUILD_MODE", "guildMode", L["Repair with guild bank funds"], GetGuildModeOptions,
+		L["Uses guild bank funds for repairs when your guild rank allows it. If the guild can't cover the whole cost, you pay for the repair yourself."])
+		:SetParentInitializer(repairInit, IsRepairing)
+
+	-- For when you wanna take control!
+	Checkbox("GOODASNEW_USE_MOD_KEY", "useModKey", L["Hold Modifier Key to prevent repairing"],
+		L["Hold Shift, Ctrl, or Alt while opening a vendor to skip repairing for that visit. Junk is still sold."])
+		:SetParentInitializer(repairInit, IsRepairing)
+
+	-- Talk to me, baby! or not...
+	Header(L["Chat"])
+	local printInit, printSetting = Checkbox("GOODASNEW_PRINT_MESSAGE", "printMessage", L["Show messages in chat"],
+		L["Prints how much your junk sold for and what repairs cost."])
+	local function IsPrinting() return printSetting:GetValue() end
+
+	-- Two receipts are one too many!
+	Checkbox("GOODASNEW_MERGE_MONEY_SUMMARY", "mergeMoneySummary", L["Combine with Blizzard's money summary at vendors"],
+		L["Adds this addon's junk-sold and repair totals onto Blizzard's own money message at vendors instead of printing them separately. Falls back to a separate message if nothing shows up to merge into within a couple seconds."])
+		:SetParentInitializer(printInit, IsPrinting)
+
+	-- Time to let the people choose! Show 'em a sample before they buy.
+	local sample = 123456
+	local function GetCurrencyStyleOptions()
+		local container = Settings.CreateControlTextContainer()
+		container:Add("short", L["Short text"], ns.GetCoinText(sample, false, true))
+		container:Add("full", L["Full text"], ns.GetCoinText(sample, true, true))
+		container:Add("coin", L["Coin icons"], C_CurrencyInfo.GetCoinTextureString(sample, 14)).warning =
+			L["Coin display may have visual artifacts.\nConsider using text options for cleaner display."]
+		return container:GetData()
+	end
+	Dropdown("GOODASNEW_CURRENCY_STYLE", "currencyStyle", L["Currency display style:"], GetCurrencyStyleOptions,
+		L["How money amounts are written in chat messages."])
+		:SetParentInitializer(printInit, IsPrinting)
+
+	-- Bold AND beautiful!
+	Checkbox("GOODASNEW_USE_COLOR", "useColor", L["Use color formatting"],
+		L["Colors the money amounts in chat messages."])
+		:SetParentInitializer(printInit, IsPrinting)
+
+	-- And now... the main event!
+	Settings.RegisterAddOnCategory(category)
+
+	-- Knock knock, it's the settings panel!
+	SLASH_GOODASNEW1 = "/goodasnew"
+	SLASH_GOODASNEW2 = "/gan"
+	SlashCmdList.GOODASNEW = function()
+		Settings.OpenToCategory(category:GetID())
+	end
+end)
