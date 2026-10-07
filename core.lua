@@ -68,9 +68,10 @@ local function InterceptedAddMessage(chatFrame, text, ...)
 	return originalAddMessage(chatFrame, text .. " " .. Gray("(") .. table.concat(parts, Gray(", ")) .. Gray(")"), ...)
 end
 
--- Blizzard only speaks up when we walk out richer, so only wait on it then!
-local function Announce(entries, gained)
-	if GoodOptions.printMessage and GoodOptions.mergeMoneySummary and expectedPrefix and gained > 0 then
+-- Blizzard only speaks up if we walk out richer, and we won't know that till the door closes. Hold it all till then!
+local function Announce(entries)
+	if #entries == 0 then return end
+	if GoodOptions.printMessage and GoodOptions.mergeMoneySummary and expectedPrefix then
 		pending = pending or {}
 		for _, entry in ipairs(entries) do
 			pending[#pending + 1] = entry
@@ -121,35 +122,69 @@ local function GetJunkValue()
 	return total
 end
 
+-- Wallet's too thin? Say so!
+local function WarnBroke()
+	p("|cffff0000" .. L["Not enough money to automatically repair!"] .. "|r")
+end
+
+-- Fix us up if somebody can cover it! Hands back the receipt, or nil plus the bill if we came up short.
+local function TryRepair()
+	-- Gotta crunch the numbers before we open the wallet!
+	local cost, repairAvailable = GetRepairAllCost()
+	if cost <= 0 or not repairAvailable then return end -- Nothing broke, nothing to fix!
+	-- See who's picking up the tab!
+	local useGuild = GuildCanCover(cost)
+	if not useGuild and cost > GetMoney() then
+		return nil, cost
+	end
+	RepairAllItems(useGuild) -- My body is ready!
+	if useGuild then
+		return { msg = L["Repaired from the guild bank for"], cost = cost, negative = true }
+	end
+	return { msg = L["Repaired for"], cost = cost, negative = true }
+end
+
+-- Junk cash still in the mail? Hang tight till it lands!
+local awaitingFunds = false
+
+local f = CreateFrame("Frame")
+
+-- Eyes on the wallet, and on the gear in case somebody else fixes it first!
+local function StartWaiting()
+	awaitingFunds = true
+	f:RegisterEvent("PLAYER_MONEY")
+	f:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+end
+
+local function StopWaiting()
+	awaitingFunds = false
+	f:UnregisterEvent("PLAYER_MONEY")
+	f:UnregisterEvent("UPDATE_INVENTORY_DURABILITY")
+end
+
 -- Let's get ready to rumble!
 local function itsShowtime()
-	local entries, gained, broke = {}, 0, false
+	local entries, junkTotal = {}, 0
 
 	-- Get this junk outta my face!
 	if GoodOptions.autoSell and C_MerchantFrame.IsSellAllJunkEnabled() and C_MerchantFrame.GetNumJunkItems() > 0 then
-		local total = GetJunkValue()
+		junkTotal = GetJunkValue()
 		C_MerchantFrame.SellAllJunkItems()
-		if total > 0 then
-			entries[#entries + 1] = { msg = L["Junk sold for"], cost = total }
-			gained = gained + total
+		if junkTotal > 0 then
+			entries[#entries + 1] = { msg = L["Junk sold for"], cost = junkTotal }
 		end
 	end
 
 	-- If this jabroni can't repair us (or we said not to), then fuhgeddaboudit!
+	local broke = false
 	if GoodOptions.autoRepair and CanMerchantRepair() and not (GoodOptions.useModKey and IsModifierKeyDown()) then
-		-- Gotta crunch the numbers before we open the wallet!
-		local cost, repairAvailable = GetRepairAllCost()
-		if cost > 0 and repairAvailable then -- Nothing broke, nothing to fix!
-			-- See who's picking up the tab!
-			local useGuild = GuildCanCover(cost)
-			if useGuild or cost <= GetMoney() then -- My body is ready!
-				RepairAllItems(useGuild)
-				if useGuild then
-					entries[#entries + 1] = { msg = L["Repaired from the guild bank for"], cost = cost, negative = true }
-				else
-					entries[#entries + 1] = { msg = L["Repaired for"], cost = cost, negative = true }
-					gained = gained - cost
-				end
+		local entry, bill = TryRepair()
+		if entry then
+			entries[#entries + 1] = entry
+		elseif bill then
+			-- The junk money hasn't hit our pockets yet. If it'll cover the bill, wait for it!
+			if junkTotal > 0 and bill <= GetMoney() + junkTotal then
+				StartWaiting()
 			else -- Pocket lint detected. We’re broke, baby!
 				broke = true
 			end
@@ -157,27 +192,60 @@ local function itsShowtime()
 	end
 
 	-- Last, but not least!
-	Announce(entries, gained)
+	Announce(entries)
 	if broke then
-		p("|cffff0000" .. L["Not enough money to automatically repair!"] .. "|r")
+		WarnBroke()
 	end
 	-- Cleaned up, patched up, and ready to roll!
 end
 
-local f = CreateFrame("Frame")
+-- Same peek at the wallet Blizzard takes, so we know if it'll bother shouting!
+local startingMoney
+
 f:SetScript("OnEvent", function(_, event)
 	if event == "MERCHANT_SHOW" then
+		StopWaiting()
+		startingMoney = GetMoney()
 		itsShowtime()
-	elseif pending then -- MERCHANT_CLOSED
-		-- Give Blizzard's line a couple seconds to strut in before we throw in the towel!
-		local thisVisit = pending
-		C_Timer.After(2, function()
-			if pending == thisVisit then
+	elseif event == "PLAYER_MONEY" or event == "UPDATE_INVENTORY_DURABILITY" then
+		-- Changed our mind about repairs mid-wait? Then we're done here!
+		if not GoodOptions.autoRepair then
+			StopWaiting()
+			return
+		end
+		-- Cha-ching! Might come in a few drips, so keep checking till we can pay (or somebody beat us to it).
+		local entry, bill = TryRepair()
+		if not bill then
+			StopWaiting()
+			if entry then
+				Announce({ entry })
+			end
+		end
+	else -- MERCHANT_CLOSED
+		if pending then
+			local thisVisit = pending
+			if startingMoney and GetMoney() <= startingMoney then
+				-- Walked out no richer? Blizzard's staying quiet, so it's all us!
 				RestoreAddMessage()
 				FlushPending(thisVisit)
 				pending = nil
+			else
+				-- Give Blizzard's line a couple seconds to strut in before we throw in the towel!
+				C_Timer.After(2, function()
+					if pending == thisVisit then
+						RestoreAddMessage()
+						FlushPending(thisVisit)
+						pending = nil
+					end
+				end)
 			end
-		end)
+		end
+		startingMoney = nil
+		-- Door's shut and the cash never showed. No repair today!
+		if awaitingFunds then
+			StopWaiting()
+			WarnBroke()
+		end
 	end
 end)
 f:RegisterEvent("MERCHANT_SHOW")
